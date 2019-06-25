@@ -1,0 +1,214 @@
+body {
+    font: 0.9em sans-serif;
+    background: rgb(240, 240, 240);
+    margin-left: 0;
+    margin-bottom: 2em;
+}
+
+main {
+    margin-top: 7em;
+}
+
+.post {
+    background: white;
+    display: block;
+    margin-left: 25vw;
+    border: 1px solid dimgrey;
+    width: 16cm;
+    height: auto;
+    padding: 5px;
+    margin-bottom: 1em;
+}
+
+.photo img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.user-profile {
+    margin: 5px;
+    border-bottom: 1px solid dimgrey;
+    vertical-align: top;
+}
+
+.user-profile p {
+    display: inline-flex;
+    vertical-align: top;
+}
+
+.user-pic {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.user-profile button {
+    float: right;
+    margin-top: 16px;
+    font-size: 1em;
+    background: white;
+    border: 0
+}
+
+#logo
+{
+    width: 3em;
+    height: 3em;
+    display: inline-flex;
+    float: left;
+}
+
+header {
+    padding: 1em;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    height: max-content;
+    border-bottom: 2px solid darkgray;
+}
+
+header span {
+    font-family: "apkipelago";
+    font-size: 3em;
+    float: left;
+    margin-left: 0.2em;
+}
+
+nav {
+    float: right;
+    display: inline-flex;
+    margin-right: 3em;
+}
+
+.navi {
+    margin: 0.1em;
+    width: 6em;
+    height: 2em;
+    background: aliceblue;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navi:hover {
+    background: #A0A8AF;
+}
+
+.navi:active {
+    background: bisque;
+}
+
+.like-button {
+    background: none;
+    border: none;
+}
+
+.comment-button {
+    background: none;
+    border: none;
+}
+
+.like-svg {
+    fill: red;
+    width: 25px;
+    height: 25px;
+}
+
+.comment-svg {
+    fill: red;
+    width: 25px;
+    height: 25px;
+}
+
+.like-comment_button {
+    margin-left: 1em;
+}
+
+
+@media screen and (orientation: portrait){
+    header span {
+        font-family: "apkipelago";
+        font-size: 4em;
+        float: left;
+        margin-left: 0.2em;
+    }
+
+    .post {
+        background: white;
+        margin: 1em;
+        border: 1px solid dimgrey;
+        width: auto;
+        height: auto;
+        padding: 5px;
+    }
+
+    .photo img {
+        width: 100%;
+        height: 65em;
+    }
+
+    .user-profile {
+        margin: 5px;
+        border-bottom: 1px solid dimgrey;
+        vertical-align: top;
+    }
+
+    .user-profile p {
+        display: inline-flex;
+        vertical-align: top;
+        font-size: 2em;
+    }
+
+    .user-pic {
+        width: 6em;
+        height: 6em;
+        border-radius: 3.5em;
+    }
+
+    .user-profile button {
+        float: right;
+        font-weight: bold;
+        margin-top: 1em;
+        font-size: 2em;
+        background: white;
+        border: 0
+    }
+
+    .like-svg {
+        fill: red;
+        width: 6em;
+        height: 6em;
+    }
+
+    .comment-svg {
+        fill: red;
+        width: 6em;
+        height: 6em;
+    }
+    .like-comment_button {
+        margin-left: 1em;
+    }
+
+    .like-comment_button p {
+        font-size: 2em;
+    }
+    .comment-div {
+        text-align: center;
+    }
+    .like-comment_button a {
+        font-size: 2em;
+    }
+
+    .navi {
+        margin: 0.2em;
+        width: 3em;
+        height: 2em;
+        background: aliceblue;
+        font-size: 2.2em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
