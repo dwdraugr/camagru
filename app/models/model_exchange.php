@@ -1,9 +1,11 @@
 <?php
+include_once "config/database.php";
 class Model_Exchange extends Model
 {
     public function get_photo($param)
     {
-        $img = file_get_contents("ftp://qwe:rty@172.17.0.3/photos/$param.jpg");
+        include "config/database.php";
+        $img = file_get_contents("ftp://$ftp_user:$ftp_pass@$ftp_host/photos/$param.jpg");
         return $img;
 
 
@@ -11,7 +13,8 @@ class Model_Exchange extends Model
 
     public function get_icon($param)
     {
-        $img = file_get_contents("ftp://qwe:rty@172.17.0.3/icons/$param.jpg");
+        include "config/database.php";
+        $img = file_get_contents("ftp://$ftp_user:$ftp_pass@$ftp_host/icons/$param.jpg");
         return $img;
     }
 }
