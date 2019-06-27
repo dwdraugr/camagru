@@ -1,20 +1,15 @@
 <?php
-foreach ($data as $s)
+foreach ($data as $d)
 {
-    $username = $s["nickname"];
-    $comment = $s['comment'];
-    $id = $s['id'];
-    $likes = $s['likes'];
     echo <<<article
 <article class="post">
         <section class="user-profile">
-            <img class="user-pic" src="/exchange/icon/$username">
-            <p>$username         $id</p>
-            <p>$username</p>
+            <img class="user-pic" src="/exchange/icon/{$d['uid']}">
+            <p>{$d['nickname']}</p>
             <button>* * *</button>
         </section>
         <section class="photo">
-            <img src="/exchange/photo/$id">
+            <img src="/exchange/photo/{$d['aid']}">
         </section>
         <section class="like-comment_button">
             <button class="like-button">
@@ -28,8 +23,8 @@ foreach ($data as $s)
                 </svg>
             </button>
             <br>
-            <p style="font-weight: bold">This picture liked $likes people</p>
-            <p><span style="font-weight: bold">$username: </span>$comment</p>
+            <p style="font-weight: bold">This picture liked {$d['likes']} people</p>
+            <p><span style="font-weight: bold">{$d['nickname']}: </span>{$d['description']}</p>
             <div class="comment-div"><a href="#comments">Open comments</a></div>
         </section>
     </article>
