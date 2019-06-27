@@ -7,13 +7,14 @@ body {
 
 main {
     margin-top: 7em;
+    box-shadow: 1em 0.5em 0.5em gray;
 }
 
 .post {
     background: white;
     display: block;
     margin-left: 25vw;
-    border: 1px solid dimgrey;
+    border: none;
     width: 16cm;
     height: auto;
     padding: 5px;
@@ -83,7 +84,7 @@ nav {
 
 .navi {
     margin: 0.1em;
-    width: 6em;
+    width: 4em;
     height: 2em;
     background: aliceblue;
     font-size: 1.5em;
