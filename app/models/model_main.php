@@ -9,7 +9,7 @@ class Model_Main extends Model
         $src = 'SELECT articles.id as aid, users.id as uid, users.nickname, articles.`likes` , articles.description 
                 FROM articles, users 
                 WHERE users.id = articles.id_user 
-                ORDER BY articles.publication_date, articles.publication_time DESC ';
+                ORDER BY articles.publication_date DESC ';
         $data = $pdo->query($src);
         return $data;
     }
@@ -23,7 +23,7 @@ class Model_Main extends Model
         $src = "SELECT articles.id as aid, users.id as uid, users.nickname, articles.`likes` , articles.description 
                 FROM articles, users 
                 WHERE users.id = articles.id_user AND articles.id_user = $uid
-                ORDER BY articles.publication_date, articles.publication_time DESC ";
+                ORDER BY articles.publication_date DESC ";
         $data = $pdo->query($src);
         return $data;
     }

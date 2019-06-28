@@ -7,7 +7,6 @@ body {
 
 main {
     margin-top: 7em;
-    box-shadow: 1em 0.5em 0.5em gray;
 }
 
 .post {
@@ -67,6 +66,8 @@ header {
     background: rgb(255, 255, 255);
     height: max-content;
     border-bottom: 2px solid darkgray;
+    box-shadow: 1em 0.5em 0.5em gray;
+
 }
 
 header span {
@@ -129,6 +130,9 @@ nav {
 
 
 @media screen and (orientation: portrait){
+    header {
+        min-width: 857px;
+    }
     header span {
         font-family: "apkipelago";
         font-size: 4em;
@@ -204,7 +208,7 @@ nav {
 
     .navi {
         margin: 0.2em;
-        width: 3em;
+        width: 4em;
         height: 2em;
         background: aliceblue;
         font-size: 2.2em;

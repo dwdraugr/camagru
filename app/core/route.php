@@ -25,7 +25,10 @@ class Route
         {
             $parameter = $routes[3];
         }
-
+        elseif (isset($_POST))
+        {
+            $parameter = $_POST;
+        }
         // добавляем префиксы
         $model_name = 'model_'.$controller_name;
         $controller_name = 'controller_'.$controller_name;

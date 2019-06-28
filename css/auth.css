@@ -1,0 +1,17 @@
+.auth
+{
+    background: white;
+    margin: 0 auto;
+    width: 20em;
+    box-shadow: 0.7em 0.3em 0.3em gray;
+    text-align: center;
+    padding: 2em;
+}
+
+.auth input {
+    height: 1.5em;
+}
+
+.zhir {
+    height: 4em;
+}

@@ -1,5 +1,5 @@
 <?php
-$db_host = '172.17.0.4';
+$db_host = '172.17.0.2';
 $db   = 'bigdb';
 $db_user = 'root';
 $db_pass = 'qwerty';

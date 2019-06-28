@@ -20,6 +20,11 @@ class Controller_Main extends Controller
 
     function action_profile()
     {
+        if (!isset($_SESSION['nickname']) and !isset($_SESSION['password']))
+        {
+            header("Location: /auth/");
+            exit();
+        }
         $data = $this->model->get_profile();
         $this->view->generate('main_view.php', 'template_view.php', $data);
     }
