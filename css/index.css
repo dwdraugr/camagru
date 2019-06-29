@@ -67,7 +67,12 @@ header {
     height: max-content;
     border-bottom: 2px solid darkgray;
     box-shadow: 1em 0.5em 0.5em gray;
+    z-index: 0;
+}
 
+#user {
+    background: fuchsia;
+    width: max-content;
 }
 
 header span {
@@ -126,7 +131,7 @@ nav {
 
 .like-comment_button {
     margin-left: 1em;
-}
+}dock
 
 
 @media screen and (orientation: portrait){
