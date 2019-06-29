@@ -4,8 +4,8 @@ echo <<<SIGNIN
 <div class="auth">
     <p>Sign in to amazing Camagru</p>
     <form name="signin" action="/auth/signin" method="post">
-        <p><input  type="text" placeholder="Nickname" name="nickname"></p>
-        <p><input type="password" placeholder="Password" name="password"></p>
+        <p><input  type="text" placeholder="Nickname" name="nickname" required="required"></p>
+        <p><input type="password" placeholder="Password" name="password" required="required"></p>
         <hr>
         <br>
         <p><input type="submit" name="submit" value="Sign In"></p>
