@@ -3,7 +3,7 @@ if ($data == Model_Signup::EMAIL_EXIST) {
     echo <<<SUC
 <br><br><br><br><br><br>
 <p style="text-align: center; font-size: larger">
-An account with this email has already been created  
+An account with this email or login has already been created  
 </p>
 SUC;
 }

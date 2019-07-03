@@ -27,9 +27,17 @@ $comments_tab = "CREATE TABLE IF NOT EXISTS comments(
     comment_date DATETIME NOT NULL,
     content VARCHAR(250) NOT NULL
 )";
+
+$change_tab = "CREATE TABLE IF NOT EXISTS change_table(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_user INT UNSIGNED NOT NULL,
+    reason INT UNSIGNED NOT NULL,
+    sid VARCHAR(150) NOT NULL
+)";
 $pdo->exec($users_tab);
 $pdo->exec($article_tab);
 $pdo->exec($comments_tab);
+$pdo->exec($change_tab);
 $data = $pdo->query('SELECT articles.id as aid, users.id as uid, users.nickname, articles.`likes` , articles.description FROM articles, users WHERE users.id = articles.id_user ORDER BY articles.publication_date ASC ');
 foreach ($data as $datum) {
     echo "<br>";
