@@ -10,9 +10,9 @@ echo <<<SIGNIN
         <hr>
         <br>
 SIGNIN;
-    if ($data == 'not-data')
+    if ($data == Model::INCOMPLETE_DATA)
         echo "<p style='color: darkred; font-style: italic'>Please, enter login, e-mail and password</p>";
-    elseif ($data == 'email-gov')
+    elseif ($data == Model::BAD_EMAIL)
         echo "<p style='color: darkred; font-style: italic'>Please, enter correct e-mail</p>";
 echo <<<SIGNIN
         <p><input type="submit" name="submit" value="Sign In"></p>

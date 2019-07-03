@@ -20,7 +20,7 @@ class Model_Signup extends Model
             'password' =>  hash("whirlpool", $passwd),
             'email' => $email
         );
-        if ($this->_check($pdo, $arr, $email))
+        if ($this->_check($pdo, $arr))
             return self::EMAIL_EXIST;
         if ($this->_write_to_db($pdo, Model_Signup::$sql_write_db, $arr) and $this->_add_to_change($arr, $pdo))
             return self::SUCCESS;
@@ -28,12 +28,11 @@ class Model_Signup extends Model
             return self::DB_ERROR;
     }
 
-    private function _check($pdo, $arr, $email)
+    private function _check($pdo, $arr)
     {
         unset($arr['password']);
         $stmt = $pdo->prepare(self::$sql_check);
-        if (!$stmt->execute($arr))
-            return FALSE; //TODO: Возвращение "существования" аккаунта при ошибке бд - это говно
+        $stmt->execute($arr);
         $result = $stmt->fetchAll();
         foreach ($result as $r)
         {
@@ -85,6 +84,4 @@ class Model_Signup extends Model
                     "X-Mailer: PHP/".phpversion();
         mail($email, $subject, $main, $headers);
     }
-
-
 }
