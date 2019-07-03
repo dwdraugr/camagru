@@ -43,4 +43,16 @@ class Controller_Auth extends Controller
         header("Location: /main/");
         exit();
     }
+
+    public function action_confirm($param)
+    {
+        $result = $this->model->confirm_account($param);
+        if ($result)
+        {
+            header("Location: /main/");
+            exit;
+        }
+        else
+        $this->view->generate("confirmed_view.php", "template_view.php");
+    }
 }
