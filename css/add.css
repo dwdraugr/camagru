@@ -1,0 +1,46 @@
+#create_post {
+    display: flex;
+    border: 1px solid gray;
+    border-radius: 1vmin;
+    margin: 2em;
+    width: available;
+    height: 80vh;
+    background: white;
+}
+
+#image_field {
+    margin: 1em;
+    display: inline-flex;
+    background: aqua;
+    width: 65%;
+    height: available;
+}
+
+#side_menu {
+    margin: 1em;
+    background: lightblue;
+    width: 35%;
+    height: available;
+}
+
+#sticker_bar {
+    display: block;
+    margin: 0.3em;
+    background: lightyellow;
+    width: available;
+    height: 50%;
+}
+
+#description {
+    margin: 0.3em;
+    background: cornflowerblue;
+    width: available;
+    height: 35%;
+}
+
+#submit {
+    margin: 1em 0.3em 0.3em 0.3em;
+    background: gray;
+    width: available;
+    height: 10%;
+}

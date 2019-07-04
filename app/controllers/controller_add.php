@@ -1,0 +1,16 @@
+<?php
+class Controller_Add extends Controller
+{
+	private static $view_page = "add_view.php";
+
+	public function __construct()
+	{
+		$this->view = new View();
+		$this->model = New Model_Add();
+	}
+
+	public function action_index($param = null)
+	{
+		$this->view->generate(self::$view_page, Controller::$template);
+	}
+}
