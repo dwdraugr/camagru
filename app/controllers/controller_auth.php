@@ -1,6 +1,7 @@
 <?php
 class Controller_Auth extends Controller
 {
+	private static $view_page = "auth_view.php";
     public function __construct()
     {
         $this->view = new View();
@@ -9,7 +10,7 @@ class Controller_Auth extends Controller
 
     public function action_index($param = null)
     {
-        $this->view->generate("signin_view.php", "template_view.php", $param);
+        $this->view->generate(Controller_Auth::$view_page, Controller::$template, $param);
     }
 
     public function action_signin($param)
@@ -19,22 +20,14 @@ class Controller_Auth extends Controller
             header("Location: /main/");
             exit();
         }
-        $nickname = $param['nickname'];
-        $password = $param['password'];
-        $data = $this->model->get_data($nickname, $password);
-        if ($data)
+        $data = $this->model->get_data($param['nickname'], $param['password']);
+        if ($data === Model::SUCCESS)
         {
-            $_SESSION['nickname'] = $data[0]['nickname'];
-            $_SESSION['password'] = $data[0]['password'];
-            $_SESSION['uid'] = $data[0]['id'];
             header("Location: /main/");
             exit();
         }
         else
-        {
-            $data = 1;
             $this->action_index($data);
-        }
     }
 
     public function action_signout()
@@ -47,12 +40,12 @@ class Controller_Auth extends Controller
     public function action_confirm($param)
     {
         $result = $this->model->confirm_account($param);
-        if ($result)
+        if ($result === Model::SUCCESS)
         {
             header("Location: /main/");
             exit;
         }
         else
-        $this->view->generate("confirmed_view.php", "template_view.php");
+        $this->view->generate(Controller_Auth::$view_page, Controller::$template, $result);
     }
 }

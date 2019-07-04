@@ -1,6 +1,7 @@
 <?php
 class Controller_Signup extends Controller
 {
+	private static $view_page = "signup_view.php";
     public function __construct()
     {
         $this->view = new View();
@@ -9,7 +10,7 @@ class Controller_Signup extends Controller
 
     public function action_index($param = null)
     {
-        $this->view->generate("signup_view.php", "template_view.php", $param);
+        $this->view->generate("signup_view.php", Controller::$template, $param);
     }
 
 
@@ -25,16 +26,21 @@ class Controller_Signup extends Controller
         }
             $result = $this->model->create_account($_POST['nickname'], $_POST['password'], $_POST['email']);
         switch ($result) {
-            case Model_Signup::EMAIL_EXIST:
-                $this->view->generate("signup_unsuccess_view.php", "template_view.php",
-                    Model_Signup::EMAIL_EXIST);
+            case Model::USER_EXIST:
+                $this->view->generate(Controller_Signup::$view_page, Controller::$template,
+                    Model::USER_EXIST);
                 break;
-            case Model_Signup::SUCCESS:
-                $this->view->generate("signup_success_view.php", "template_view.php");
+            case Model::SUCCESS:
+                $this->view->generate(Controller_Signup::$view_page, Controller::$template,
+					Model::SUCCESS);
                 break;
-            case Model_Signup::DB_ERROR:
-                $this->view->generate("signup_unsuccess_view.php", "template_view.php",
-                                        Model_Signup::DB_ERROR);
+            case Model::DB_ERROR:
+                $this->view->generate(Controller_Signup::$view_page, Controller::$template,
+					Model::DB_ERROR);
+                break;
+			case Model::WEAK_PASSWORD:
+				$this->view->generate(Controller_Signup::$view_page, Controller::$template,
+					Model::WEAK_PASSWORD);
         }
     }
 }

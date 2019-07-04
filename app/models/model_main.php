@@ -1,30 +1,58 @@
 <?php
 class Model_Main extends Model
 {
+	private static $sql_get_articles = "SELECT articles.id as aid, users.id as uid, users.nickname, users.password, articles.`likes` , articles.description 
+                FROM articles, users 
+                WHERE users.id = articles.id_user AND articles.id_user = :uid
+                ORDER BY articles.publication_date DESC ";
+
+	private static $sql_is_user = "SELECT * FROM users where nickname = :nickname AND id = :uid AND password = :password";
+
     public function get_feed()
     {
         include 'config/database.php';
-        $pdo = new PDO($dsn, $db_user, $db_pass, $opt);
-        $pdo->exec("USE $db");
-        $src = 'SELECT articles.id as aid, users.id as uid, users.nickname, articles.`likes` , articles.description 
+        try
+		{
+			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
+			$pdo->exec("USE $db");
+			$src = 'SELECT articles.id as aid, users.id as uid, users.nickname, articles.`likes` , articles.description 
                 FROM articles, users 
                 WHERE users.id = articles.id_user 
                 ORDER BY articles.publication_date DESC ';
-        $data = $pdo->query($src);
-        return $data;
+			$data = $pdo->query($src);
+			return $data;
+		}
+		catch (PDOException $ex)
+		{
+			return Model::DB_ERROR;
+		}
     }
 
     public function get_profile()
     {
-        $uid = $_SESSION['uid'];
+        $arr = array(
+        	'uid' => $_SESSION['uid'],
+        	'nickname' => $_SESSION['nickname'],
+        	'password' => $_SESSION['password']
+		);
         include 'config/database.php';
-        $pdo = new PDO($dsn, $db_user, $db_pass, $opt);
-        $pdo->exec("USE $db");
-        $src = "SELECT articles.id as aid, users.id as uid, users.nickname, articles.`likes` , articles.description 
-                FROM articles, users 
-                WHERE users.id = articles.id_user AND articles.id_user = $uid
-                ORDER BY articles.publication_date DESC ";
-        $data = $pdo->query($src);
-        return $data;
+        try
+		{
+			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
+			$pdo->exec("USE $db");
+			$stmt = $pdo->prepare(Model_Main::$sql_is_user);
+			$stmt->execute($arr);
+			$data = $stmt->fetch();
+			if (!$data)
+				return Model::INCORRECT_NICK_PASS;
+			$stmt = $pdo->prepare(Model_Main::$sql_get_articles);
+			$stmt->execute(array('uid' => $_SESSION['uid']));
+			$data = $stmt->fetchAll();
+			return $data;
+		}
+		catch (PDOException $ex)
+		{
+			return Model::DB_ERROR;
+		}
     }
 }

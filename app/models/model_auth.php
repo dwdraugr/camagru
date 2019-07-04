@@ -9,35 +9,54 @@ class Model_Auth extends Model
     {
         include "config/database.php";
         $hash_passwd = hash("whirlpool", $password);
-        $pdo = new PDO($dsn, $db_user, $db_pass, $opt);
-        $pdo->exec("USE $db");
-        $sql = "SELECT * FROM users WHERE nickname = ? AND password = ?";
-        $stmt = $pdo->prepare($sql);
-        if ($stmt->execute(array($login, $hash_passwd))) {
-            $data = $stmt->fetchAll();
-            return $data;
-        }
-        else
-            return null;
+        try
+		{
+			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
+			$pdo->exec("USE $db");
+			$sql = "SELECT * FROM users WHERE nickname = ? AND password = ?";
+			$stmt = $pdo->prepare($sql);
+			$stmt->execute(array($login, $hash_passwd));
+			$data = $stmt->fetch();
+			if ($data)
+			{
+				$_SESSION['nickname'] = $data['nickname'];
+				$_SESSION['password'] = $data['password'];
+				$_SESSION['uid'] = $data['id'];
+				return Model::SUCCESS;
+			}
+			else
+				return Model::INCORRECT_NICK_PASS;
+		}
+		catch (PDOException $ex)
+		{
+			return Model::DB_ERROR;
+		}
     }
 
     public function confirm_account($sid)
     {
         include "config/database.php";
-        $pdo = new PDO($dsn, $db_user, $db_pass, $opt);
-        $pdo->exec("USE $db");
-        $stmt = $pdo->prepare(Model_Auth::$sql_search);
-        $stmt->execute(array($sid));
-        $result = $stmt->fetch();
-        if ($result['sid'] == $sid)
-        {
-            $stmt = $pdo->prepare(Model_Auth::$sql_update);
-            $stmt->execute(array($result['id_user']));
-            $stmt = $pdo->prepare(Model_Auth::$sql_remove);
-            $stmt->execute(array($result['id_user']));
-            return TRUE;
-        }
-        else
-            return FALSE;
+        try
+		{
+			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
+			$pdo->exec("USE $db");
+			$stmt = $pdo->prepare(Model_Auth::$sql_search);
+			$stmt->execute(array($sid));
+			$result = $stmt->fetch();
+			if ($result)
+			{
+				$stmt = $pdo->prepare(Model_Auth::$sql_update);
+				$stmt->execute(array($result['id_user']));
+				$stmt = $pdo->prepare(Model_Auth::$sql_remove);
+				$stmt->execute(array($result['id_user']));
+				return Model::SUCCESS;
+			}
+			else
+				return Model::SID_NOT_FOUND;
+		}
+		catch (PDOException $ex)
+		{
+			return Model::DB_ERROR;
+		}
     }
 }

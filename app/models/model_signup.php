@@ -13,64 +13,90 @@ class Model_Signup extends Model
     public function create_account($nickname, $passwd, $email)
     {
         include "config/database.php";
-        $pdo = new PDO($dsn, $db_user, $db_pass, $opt);
-        $pdo->exec("USE $db");
-        $arr = array(
-            'nickname' => $nickname,
-            'password' =>  hash("whirlpool", $passwd),
-            'email' => $email
-        );
-        if ($this->_check($pdo, $arr))
-            return self::EMAIL_EXIST;
-        if ($this->_write_to_db($pdo, Model_Signup::$sql_write_db, $arr) and $this->_add_to_change($arr, $pdo))
-            return self::SUCCESS;
-        else
-            return self::DB_ERROR;
+        if ($passwd === strtolower($passwd) or strlen($passwd) < 6)
+        	return Model::WEAK_PASSWORD;
+        try
+		{
+			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
+			$pdo->exec("USE $db");
+			$arr = array('nickname' => $nickname, 'password' => hash("whirlpool", $passwd), 'email' => $email);
+			if ($this->_check($pdo, $arr))
+				return self::USER_EXIST;
+			switch ($this->_check($pdo, $arr))
+			{
+				case Model::DB_ERROR:
+					return Model::DB_ERROR;
+				case Model::USER_EXIST:
+					return Model::USER_EXIST;
+				case Model::SUCCESS:
+			}
+			if ($this->_write_to_db($pdo, Model_Signup::$sql_write_db, $arr) === Model::SUCCESS
+				and $this->_add_to_change($arr, $pdo) === Model::SUCCESS)
+				return Model::SUCCESS;
+			else
+				return Model::DB_ERROR;
+		}
+		catch (PDOException $ex)
+		{
+			return Model::DB_ERROR;
+		}
     }
 
     private function _check($pdo, $arr)
     {
         unset($arr['password']);
-        $stmt = $pdo->prepare(self::$sql_check);
-        $stmt->execute($arr);
-        $result = $stmt->fetchAll();
-        foreach ($result as $r)
-        {
-            if ($r['email'] == $arr['email'] or $r['nickname'] == $arr['nickname'])
-                return TRUE;
-        }
-        return FALSE;
+        try
+		{
+			$stmt = $pdo->prepare(self::$sql_check);
+			$stmt->execute($arr);
+			$result = $stmt->fetchAll();
+			foreach ($result as $r)
+			{
+				if ($r['email'] == $arr['email'] or $r['nickname'] == $arr['nickname'])
+					return Model::USER_EXIST;
+			}
+			return Model::SUCCESS;
+		}
+		catch (PDOException $ex)
+		{
+			Model::DB_ERROR;
+		}
     }
 
     private function _add_to_change($arr, $pdo) {
-        $stmt = $pdo->prepare(self::$sql_get_id);
-        $stmt->execute($arr);
-        $id = $stmt->fetch();
-        $stmt = $pdo->prepare(self::$sql_add_to_change);
-        $fd = fopen("/dev/urandom", "r");
-        $salt = fread($fd, 30);
-        fclose($fd);
-        $sid = hash("whirlpool", $arr['email'].$salt);
-        $arr2 = array(
-            'id' => $id['id'],
-            'reason' => Model::REASON_CREATE,
-            'sid' => $sid
-        );
-        if ($stmt->execute($arr2)) {
-            $this->_send_mail($arr['email'], $sid);
-            return TRUE;
-        }
-        RETURN FALSE;
+    	try
+		{
+			$stmt = $pdo->prepare(self::$sql_get_id);
+			$stmt->execute($arr);
+			$id = $stmt->fetch();
+			$stmt = $pdo->prepare(self::$sql_add_to_change);
+			$fd = fopen("/dev/urandom", "r");
+			$salt = fread($fd, 30);
+			fclose($fd);
+			$sid = hash("whirlpool", $arr['email'] . $salt);
+			$arr2 = array('id' => $id['id'], 'reason' => Model::REASON_CREATE, 'sid' => $sid);
+			$stmt->execute($arr2);
+			$this->_send_mail($arr['email'], $sid);
+			return Model::SUCCESS;
+		}
+        catch (PDOException $ex)
+		{
+			return Model::DB_ERROR;
+		}
     }
 
     private function _write_to_db($pdo, $sql, $arr)
     {
-        $stmt = $pdo->prepare($sql);
-        if ($stmt->execute($arr)) {
-            return TRUE;
-        }
-        else
-            return FALSE;
+    	try
+		{
+			$stmt = $pdo->prepare($sql);
+			$stmt->execute($arr);
+			return Model::SUCCESS;
+		}
+		catch (PDOException $ex)
+		{
+			return Model::DB_ERROR;
+		}
     }
 
     private function _send_mail($email, $sid)
@@ -83,5 +109,6 @@ class Model_Signup extends Model
                     "Reply-To: kostya.marinenkov@gmail.com"."\r\n".
                     "X-Mailer: PHP/".phpversion();
         mail($email, $subject, $main, $headers);
+
     }
 }
