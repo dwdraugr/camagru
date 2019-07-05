@@ -9,6 +9,8 @@ class Model
     const INCORRECT_NICK_PASS	= 5;
     const SID_NOT_FOUND			= 6;
     const WEAK_PASSWORD			= 7;
+    const UNUPLOADED_FILE		= 8;
+    const FORBIDDEN_FILETYPE	= 9;
 
     const REASON_CREATE			= 100;
     const REASON_FORGOTTEN		= 101;

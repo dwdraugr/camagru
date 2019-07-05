@@ -13,4 +13,11 @@ class Controller_Add extends Controller
 	{
 		$this->view->generate(self::$view_page, Controller::$template);
 	}
+
+	public function action_put()
+	{
+		header("Content-type: image/jpeg");
+		$img = $this->model->put_file();
+			echo file_get_contents("ftp://admin:admin@172.17.0.3/jj.jpg");
+	}
 }

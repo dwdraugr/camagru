@@ -14,14 +14,15 @@ main {
     display: block;
     margin-left: 25vw;
     border: none;
-    width: 16cm;
+    width: 600px;
     height: auto;
     padding: 5px;
     margin-bottom: 1em;
 }
 
 .photo img {
-    width: 100%;
+    width: 600px;
+    height: 600px;
     object-fit: cover;
 }
 
