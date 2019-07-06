@@ -17,5 +17,10 @@ class Controller_Add extends Controller
 	public function action_create()
 	{
 		$result = $this->model->create_article();
+		if (gettype($result) === "array")
+		{
+			header("Location: /article/index/$result[1]");
+			exit();
+		}
 	}
 }

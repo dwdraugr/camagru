@@ -11,6 +11,7 @@ class Model
     const WEAK_PASSWORD			= 7;
     const UNUPLOADED_FILE		= 8;
     const FORBIDDEN_FILETYPE	= 9;
+    const ARTICLE_NOT_FOUND		= 10;
 
     const REASON_CREATE			= 100;
     const REASON_FORGOTTEN		= 101;

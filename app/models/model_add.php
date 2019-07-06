@@ -20,7 +20,7 @@ class Model_Add extends Model
 			return Model::DB_ERROR;
 		}
 		if (($result = $this->_insert_to_ftp($id)) === Model::SUCCESS)
-			return Model::SUCCESS;
+			return array(Model::SUCCESS, $id);
 		else
 			return $result;
 	}

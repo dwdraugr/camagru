@@ -28,7 +28,7 @@ class Model_Main extends Model
 		}
     }
 
-    public function get_profile()
+    public function get_profile() //TODO: Сделать не по session, а по id
     {
         $arr = array(
         	'uid' => $_SESSION['uid'],
