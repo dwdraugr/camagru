@@ -22,7 +22,7 @@
             }
         else {
 			echo "<a href='/add'><div class='navi'>Add</div></a>";
-            echo "<a href='/main/profile'><div id='user' class='navi'>{$_SESSION['nickname']}</div></a>";
+            echo "<a href='/main/profile/{$_SESSION['uid']}'><div id='user' class='navi'>{$_SESSION['nickname']}</div></a>";
             echo "<a href='/settings'><div class='navi'>Settings</div></a>";
             echo "<a href='/auth/signout'><div class='navi'>Sign Out</div></a>";
         }

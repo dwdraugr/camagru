@@ -18,4 +18,21 @@ class Controller_Article extends Controller
 		$data = $this->model->get_data($param);
 		$this->view->generate(Controller_Article::$view_page, Controller::$template, $data);
 	}
+
+	public function action_add($param)
+	{
+		$data = $this->model->put_comment($param);
+		if ($data  === Model::SUCCESS)
+		{
+			header("Location: /article/index/$param");
+			exit();
+		}
+		elseif ($data === Model::INCORRECT_NICK_PASS)
+		{
+			header("Location: /auth/");
+			exit;
+		}
+		else
+			$this->view->generate(Controller_Article::$view_page, Controller::$template, $data);
+	}
 }
