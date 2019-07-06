@@ -20,11 +20,12 @@ class Model
     protected function _auth()
 	{
 		if (!(isset($_SESSION['nickname']) and isset($_SESSION['uid']) and isset($_SESSION['password'])))
-			return Model::INCOMPLETE_DATA;
+			return Model::INCORRECT_NICK_PASS;
 		include "config/database.php";
 		try
 		{
 			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
+			$pdo->exec("USE $db");
 			$stmt = $pdo->prepare($this->sql_read);
 			$stmt->execute(array(
 				'nickname' => $_SESSION['nickname'],

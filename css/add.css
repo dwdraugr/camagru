@@ -28,14 +28,18 @@
     margin: 0.3em;
     background: lightyellow;
     width: available;
-    height: 50%;
+    height: 75%;
 }
 
 #description {
     margin: 0.3em;
     background: cornflowerblue;
     width: available;
-    height: 35%;
+    height: 10%;
+}
+
+#description input {
+    width: 80%;
 }
 
 #submit {
