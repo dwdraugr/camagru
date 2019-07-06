@@ -28,7 +28,7 @@ class Model_Main extends Model
 		}
     }
 
-    public function get_profile($id) //TODO: Сделать не по session, а по id
+    public function get_profile($id)
     {
         include 'config/database.php';
         try
