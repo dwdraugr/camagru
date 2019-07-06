@@ -12,6 +12,7 @@ class Model
     const UNUPLOADED_FILE		= 8;
     const FORBIDDEN_FILETYPE	= 9;
     const ARTICLE_NOT_FOUND		= 10;
+    const NON_CONFIRMED_ACC		= 11;
 
     const REASON_CREATE			= 100;
     const REASON_FORGOTTEN		= 101;
@@ -36,8 +37,10 @@ class Model
 			$data = $stmt->fetch();
 			if (!$data)
 				return Model::INCORRECT_NICK_PASS;
-			else
+			elseif ($data['confirmed'] == 1)
 				return Model::SUCCESS;
+			else
+				return Model::NON_CONFIRMED_ACC;
 		}
 		catch (PDOException $ex)
 		{

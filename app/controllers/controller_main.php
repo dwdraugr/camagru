@@ -19,19 +19,9 @@ class Controller_Main extends Controller
         $this->action_index($param);
     }
 
-    function action_profile()
+    function action_profile($param)
     {
-        if (!isset($_SESSION['nickname']) or !isset($_SESSION['password']) or !isset($_SESSION['uid']))
-        {
-            header("Location: /auth/");
-            exit();
-        }
-        $data = $this->model->get_profile();
-        if ($data === Model::INCORRECT_NICK_PASS)
-		{
-			header("Location: /auth/");
-			exit();
-		}
+        $data = $this->model->get_profile($param);
 		$this->view->generate(Controller_Main::$view_page, Controller::$template, $data);
     }
 }

@@ -22,5 +22,17 @@ class Controller_Add extends Controller
 			header("Location: /article/index/$result[1]");
 			exit();
 		}
+		elseif ($result === Model::INCORRECT_NICK_PASS)
+		{
+			header("Location: /auth/");
+			exit();
+		}
+		elseif ($result === Model::INCOMPLETE_DATA)
+		{
+			header("Location: /auth");
+			exit();
+		}
+		else
+			$this->view->generate(self::$view_page, Controller::$template, $result);
 	}
 }

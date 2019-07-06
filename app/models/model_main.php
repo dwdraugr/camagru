@@ -6,7 +6,7 @@ class Model_Main extends Model
                 WHERE users.id = articles.id_user AND articles.id_user = :uid
                 ORDER BY articles.publication_date DESC ";
 
-	private static $sql_is_user = "SELECT * FROM users where nickname = :nickname AND id = :uid AND password = :password";
+	private static $sql_is_user = "SELECT * FROM users where id = :uid";
 
     public function get_feed()
     {
@@ -28,25 +28,15 @@ class Model_Main extends Model
 		}
     }
 
-    public function get_profile() //TODO: Сделать не по session, а по id
+    public function get_profile($id) //TODO: Сделать не по session, а по id
     {
-        $arr = array(
-        	'uid' => $_SESSION['uid'],
-        	'nickname' => $_SESSION['nickname'],
-        	'password' => $_SESSION['password']
-		);
         include 'config/database.php';
         try
 		{
 			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
 			$pdo->exec("USE $db");
-			$stmt = $pdo->prepare(Model_Main::$sql_is_user);
-			$stmt->execute($arr);
-			$data = $stmt->fetch();
-			if (!$data)
-				return Model::INCORRECT_NICK_PASS;
 			$stmt = $pdo->prepare(Model_Main::$sql_get_articles);
-			$stmt->execute(array('uid' => $_SESSION['uid']));
+			$stmt->execute(array('uid' => $id));
 			$data = $stmt->fetchAll();
 			return $data;
 		}

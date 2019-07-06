@@ -13,7 +13,7 @@ else
 	<article class="post">
 			<section class="user-profile">
 				<img class="user-pic" src="/exchange/icon/{$d['uid']}">
-				<p>{$d['nickname']}</p>
+				<a href="/main/profile/{$d['uid']}"><p>{$d['nickname']}</p></a>
 				<button>* * *</button>
 			</section>
 			<section class="photo">
@@ -28,7 +28,7 @@ else
 				<br>
 				<p style="font-weight: bold">This picture liked {$d['likes']} people</p>
 				<p><span style="font-weight: bold">{$d['nickname']}: </span>{$d['description']}</p>
-				<div class="comment-div"><a href="#comments">Open comments</a></div>
+				<div class="comment-div"><a href="/article/index/{$d['aid']}">Open comments</a></div>
 			</section>
 		</article>
 article;

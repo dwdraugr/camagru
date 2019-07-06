@@ -1,5 +1,40 @@
 <?php
-echo <<<MAIN
+switch ($data)
+{
+	case Model::DB_ERROR:
+		echo <<<SUC
+	<br><br><br><br><br><br>
+	<p style="text-align: center; font-size: larger">
+	Sorry, we have some problem with database. Please stand by.
+	</p>
+SUC;
+		break;
+	case Model::UNUPLOADED_FILE:
+		echo <<<SUC
+	<br><br><br><br><br><br>
+	<p style="text-align: center; font-size: larger">
+	An error occurred while loading the image. Please try again later
+	</p>
+SUC;
+		break;
+	case Model::FORBIDDEN_FILETYPE:
+		echo <<<SUC
+	<br><br><br><br><br><br>
+	<p style="text-align: center; font-size: larger">
+	You uploaded file with wrong filetype. Please, upload another file
+	</p>
+SUC;
+		break;
+	case Model::NON_CONFIRMED_ACC:
+		echo <<<SUC
+	<br><br><br><br><br><br>
+	<p style="text-align: center; font-size: larger">
+	You account isn't confirmed. Please, check your email
+	</p>
+SUC;
+		break;
+	default:
+		echo <<<MAIN
 <div id="create_post"">
 	<div id="image_field">
 	<form id="upload_form" enctype="multipart/form-data" action="/add/create/" method="post">
@@ -15,3 +50,4 @@ echo <<<MAIN
 </div>
 </div>
 MAIN;
+}
