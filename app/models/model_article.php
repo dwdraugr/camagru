@@ -9,6 +9,8 @@ class Model_Article extends Model
 								FROM comments, users
 								WHERE id_post = :aid AND users.id = comments.id_user ORDER BY comment_date ASC";
 	private $sql_put_comment = "INSERT INTO comments VALUES (NULL, :uid, :aid, NOW(), :content)";
+	private $sql_send_email = "SELECT email, send_email FROM users INNER JOIN articles
+								ON users.id = articles.id_user AND articles.id = :aid";
 
 	public function get_data($aid)
 	{
@@ -51,11 +53,29 @@ class Model_Article extends Model
 				'aid' => $aid,
 				'content' => $_POST['comment']
 			));
+			$stmt = $pdo->prepare($this->sql_send_email);
+			$stmt->execute(array('aid' => $aid));
+			$data = $stmt->fetch();
+			$this->_send_mail($data['email'], $_SESSION['nickname'], $aid, $data['send_mail']);
 			return Model::SUCCESS;
 		}
 		catch (PDOException $ex)
 		{
 			return Model::DB_ERROR;
 		}
+	}
+
+	private function _send_mail($email, $nickname, $aid, $confirmed)
+	{
+		if ($confirmed === 0)
+			return;
+		$subject = "You have comments, sweetie";
+		$main = "Hello, $nickname! Under your post left a comment! Rather check it out! http://".
+			$_SERVER['HTTP_HOST']."/article/index/".$aid;
+		$main = wordwrap($main, 65, "\r\n");
+		$headers = 'From: kostya.marinenkov@gmail.com'."\r\n".
+			"Reply-To: kostya.marinenkov@gmail.com"."\r\n".
+			"X-Mailer: PHP/".phpversion();
+		mail($email, $subject, $main, $headers);
 	}
 }

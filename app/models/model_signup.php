@@ -109,6 +109,5 @@ class Model_Signup extends Model
                     "Reply-To: kostya.marinenkov@gmail.com"."\r\n".
                     "X-Mailer: PHP/".phpversion();
         mail($email, $subject, $main, $headers);
-
     }
 }
