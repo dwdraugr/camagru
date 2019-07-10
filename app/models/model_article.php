@@ -67,11 +67,12 @@ class Model_Article extends Model
 
 	private function _send_mail($email, $nickname, $aid, $confirmed)
 	{
+		include 'config/database.php';
 		if ($confirmed === 0)
 			return;
 		$subject = "You have comments, sweetie";
 		$main = "Hello, $nickname! Under your post left a comment! Rather check it out! http://".
-			$_SERVER['HTTP_HOST']."/article/index/".$aid;
+			$email_host."/article/index/".$aid;
 		$main = wordwrap($main, 65, "\r\n");
 		$headers = 'From: kostya.marinenkov@gmail.com'."\r\n".
 			"Reply-To: kostya.marinenkov@gmail.com"."\r\n".
