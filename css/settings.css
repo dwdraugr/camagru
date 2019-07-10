@@ -1,0 +1,10 @@
+.settings {
+    background: white;
+    width: 45vw;
+    margin: 0 auto;
+    text-align: center;
+}
+
+p {
+    font-weight: bold;
+}

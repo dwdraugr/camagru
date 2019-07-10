@@ -62,7 +62,7 @@ class Model_Article extends Model
 			$stmt = $pdo->prepare($this->sql_send_email);
 			$stmt->execute(array('aid' => $aid));
 			$data = $stmt->fetch();
-			$this->_send_mail($data['email'], $_SESSION['nickname'], $aid, $data['send_mail']);
+			$this->_send_mail($data['email'], $_SESSION['nickname'], $aid, $data['send_email']);
 			return Model::SUCCESS;
 		}
 		catch (PDOException $ex)
