@@ -2,6 +2,8 @@
 class Model_Add extends Model
 {
 	private static $sql_add_post = "INSERT INTO articles VALUES (NULL, :uid, :description, NOW(), 0)";
+	private static $sql_add_like = "INSERT INTO likes_table VALUES (:aid, :uid)";
+	private static $sql_search_like = "SELECT * FROM likes_table WHERE id_article = :aid AND id_user = :uid";
 
 	public function create_article()
 	{
@@ -72,20 +74,33 @@ class Model_Add extends Model
 			return Model::DB_ERROR;
 	}
 
-	/*
-	public function put_file()
+	public function add_like($aid)
 	{
-		if (!is_uploaded_file($_FILES['image_upload']['tmp_name']))
-			return Model::UNUPLOADED_FILE;
-		$type = exif_imagetype($_FILES['image_upload']['tmp_name']);
-		if ($type !== IMAGETYPE_JPEG and
-			$type !== IMAGETYPE_GIF and
-			$type !== IMAGETYPE_PNG)
-			return Model::FORBIDDEN_FILETYPE;
-		$old_img = imagecreatefromjpeg($_FILES['image_upload']['tmp_name']);
-		$new_img = imagescale($old_img, 600, 600);
-		$res = imagejpeg($new_img, "ftp://admin:admin@172.17.0.3/jj.jpg");
-		return Model::SUCCESS;
+		if (($result = $this->_auth()) !== Model::SUCCESS)
+			return $result;
+		include "config/database.php";
+		try
+		{
+			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
+			$pdo->exec("USE $db");
+			$stmt = $pdo->prepare(self::$sql_search_like);
+			$stmt->execute(array(
+				'aid' => $aid,
+				'uid' => $_SESSION['uid']
+			));
+			$data = $stmt->fetch();
+			if ($data !== false)
+				return Model::LIKE_EXIST;
+			$stmt = $pdo->prepare(self::$sql_add_like);
+			$stmt->execute(array(
+				'aid' => $aid,
+				'uid' => $_SESSION['uid']
+			));
+			return Model::SUCCESS;
+		}
+		catch (PDOException $ex)
+		{
+			return Model::DB_ERROR;
+		}
 	}
-	*/
 }

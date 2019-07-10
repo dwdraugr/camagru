@@ -13,6 +13,7 @@ class Model
     const FORBIDDEN_FILETYPE	= 9;
     const ARTICLE_NOT_FOUND		= 10;
     const NON_CONFIRMED_ACC		= 11;
+    const LIKE_EXIST			= 12;
 
     const REASON_CREATE			= 100;
     const REASON_FORGOTTEN		= 101;

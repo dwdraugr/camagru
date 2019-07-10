@@ -14,6 +14,23 @@ class Controller_Add extends Controller
 		$this->view->generate(self::$view_page, Controller::$template);
 	}
 
+	public function action_like($param)
+	{
+		$result = $this->model->add_like($param);
+		if ($result  === Model::SUCCESS)
+		{
+			header("Location: /article/index/$param");
+			exit();
+		}
+		elseif ($result === Model::INCORRECT_NICK_PASS)
+		{
+			header("Location: /auth/");
+			exit;
+		}
+		else
+			$this->view->generate(self::$view_page, Controller::$template, $result);
+	}
+
 	public function action_create()
 	{
 		$result = $this->model->create_article();

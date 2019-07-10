@@ -33,6 +33,14 @@ SUC;
 	</p>
 SUC;
 		break;
+	case Model::LIKE_EXIST:
+		echo <<<SUC
+	<br><br><br><br><br><br>
+	<p style="text-align: center; font-size: larger">
+	Like already exist
+	</p>
+SUC;
+		break;
 	default:
 		echo <<<MAIN
 <div id="create_post"">
