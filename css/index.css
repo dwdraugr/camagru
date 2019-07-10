@@ -109,8 +109,19 @@ nav {
 }
 
 .like-button {
-    background: none;
-    border: none;
+    margin-top: 1em;
+    border: 1px solid hotpink;
+    color: hotpink;
+    background: white;
+}
+
+.like-button:hover {
+    background: #A0A8AF;
+}
+
+.like-button:active {
+    background: hotpink;
+    color: white;
 }
 
 .comment-button {

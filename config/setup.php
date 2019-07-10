@@ -34,10 +34,16 @@ $change_tab = "CREATE TABLE IF NOT EXISTS change_table(
     reason INT UNSIGNED NOT NULL,
     sid VARCHAR(150) NOT NULL
 )";
+
+$likes_tab = "CREATE TABLE IF NOT EXISTS likes_table(
+	id_article INT UNSIGNED NOT NULL,
+	id_user INT UNSIGNED NOT NULL
+)";
 $pdo->exec($users_tab);
 $pdo->exec($article_tab);
 $pdo->exec($comments_tab);
 $pdo->exec($change_tab);
+$pdo->exec($likes_tab);
 $data = $pdo->query('SELECT articles.id as aid, users.id as uid, users.nickname, articles.`likes` , articles.description FROM articles, users WHERE users.id = articles.id_user ORDER BY articles.publication_date ASC ');
 foreach ($data as $datum) {
     echo "<br>";

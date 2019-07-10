@@ -57,6 +57,7 @@ class Route
             но для упрощения сразу сделаем редирект на страницу 404
             */
             Route::ErrorPage404();
+            return ;
         }
 
         // создаем контроллер
@@ -83,5 +84,9 @@ class Route
         header('HTTP/1.1 404 Not Found');
         header("Status: 404 Not Found");
         header('Location:'.$host.'404');
+        echo "<br><br>";
+        echo "<p style='text-align: center; font-size: large'>WELCOME TO THE 404, BUDDY</p>";
+        echo "<center><img style='width: 30%; border-radius: 15px'
+							src='/images/tenor.gif'</center>";
     }
 }
