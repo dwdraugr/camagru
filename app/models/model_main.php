@@ -1,12 +1,11 @@
 <?php
 class Model_Main extends Model
 {
-	private static $sql_get_articles = "SELECT articles.id as aid, users.id as uid, users.nickname, users.password, articles.`likes` , articles.description 
+	private static $sql_get_articles = "SELECT articles.id as aid, users.id as uid, users.nickname , articles.description 
                 FROM articles, users 
-                WHERE users.id = articles.id_user AND articles.id_user = :uid
+                WHERE users.id = articles.id_user 
                 ORDER BY articles.publication_date DESC ";
-
-	private static $sql_is_user = "SELECT * FROM users where id = :uid";
+	private static $sql_get_likes = "SELECT COUNT(*) as likes FROM likes_table WHERE id_article = :aid";
 
     public function get_feed()
     {
@@ -15,11 +14,16 @@ class Model_Main extends Model
 		{
 			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
 			$pdo->exec("USE $db");
-			$src = 'SELECT articles.id as aid, users.id as uid, users.nickname, articles.`likes` , articles.description 
-                FROM articles, users 
-                WHERE users.id = articles.id_user 
-                ORDER BY articles.publication_date DESC ';
-			$data = $pdo->query($src);
+			$stmt= $pdo->prepare(Model_Main::$sql_get_articles);
+			$stmt->execute();
+			$data = $stmt->fetchAll();
+			$stmt = $pdo->prepare(Model_Main::$sql_get_likes);
+			for ($i = 0; $i < count($data); $i++)
+			{
+				$stmt->execute(array('aid' => $data[$i]['aid']));
+				$likes = $stmt->fetch();
+				$data[$i]['likes'] = $likes['likes'];
+			}
 			return $data;
 		}
 		catch (PDOException $ex)

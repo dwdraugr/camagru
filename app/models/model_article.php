@@ -11,6 +11,8 @@ class Model_Article extends Model
 	private $sql_put_comment = "INSERT INTO comments VALUES (NULL, :uid, :aid, NOW(), :content)";
 	private $sql_send_email = "SELECT email, send_email FROM users INNER JOIN articles
 								ON users.id = articles.id_user AND articles.id = :aid";
+	private static $sql_get_likes = "SELECT COUNT(*) as likes FROM likes_table WHERE id_article = :aid";
+
 
 	public function get_data($aid)
 	{
@@ -27,6 +29,10 @@ class Model_Article extends Model
 			$stmt = $pdo->prepare($this->sql_get_comment);
 			$stmt->execute(array('aid' => $aid));
 			$data[] = $stmt->fetchAll();
+			$stmt = $pdo->prepare(Model_Article::$sql_get_likes);
+			$stmt->execute(array('aid' => $data[0]['aid']));
+			$likes = $stmt->fetch();
+			$data[0]['likes'] = $likes['likes'];
 			return $data;
 		}
 		catch (PDOException $ex)
