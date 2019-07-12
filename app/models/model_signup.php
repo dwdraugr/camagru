@@ -104,7 +104,7 @@ class Model_Signup extends Model
     	include 'config/database.php';
         $subject = "Welcome to Camagru, buddy";
         $main = "Thank you for registering on our site. To confirm your entry, follow this link: http://".
-            c."/auth/confirm/".$sid;
+            $email_host."/auth/confirm/".$sid;
         $main = wordwrap($main, 60, "\r\n");
         $headers = 'From: kostya.marinenkov@gmail.com'."\r\n".
                     "Reply-To: kostya.marinenkov@gmail.com"."\r\n".

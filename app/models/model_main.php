@@ -5,6 +5,10 @@ class Model_Main extends Model
                 FROM articles, users 
                 WHERE users.id = articles.id_user 
                 ORDER BY articles.publication_date DESC ";
+	private static $sql_get_profile = "SELECT articles.id as aid, users.id as uid, users.nickname , articles.description 
+                FROM articles, users 
+                WHERE users.id = articles.id_user AND articles.id_user = :uid
+                ORDER BY articles.publication_date DESC ";
 	private static $sql_get_likes = "SELECT COUNT(*) as likes FROM likes_table WHERE id_article = :aid";
 
     public function get_feed()
@@ -39,9 +43,16 @@ class Model_Main extends Model
 		{
 			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
 			$pdo->exec("USE $db");
-			$stmt = $pdo->prepare(Model_Main::$sql_get_articles);
+			$stmt = $pdo->prepare(Model_Main::$sql_get_profile);
 			$stmt->execute(array('uid' => $id));
 			$data = $stmt->fetchAll();
+			$stmt = $pdo->prepare(Model_Main::$sql_get_likes);
+			for ($i = 0; $i < count($data); $i++)
+			{
+				$stmt->execute(array('aid' => $data[$i]['aid']));
+				$likes = $stmt->fetch();
+				$data[$i]['likes'] = $likes['likes'];
+			}
 			return $data;
 		}
 		catch (PDOException $ex)
