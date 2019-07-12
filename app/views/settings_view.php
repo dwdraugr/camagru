@@ -1,5 +1,12 @@
 <?php
-
+if ($data === Model::DB_ERROR)
+	echo <<<SUC
+	<br><br><br><br><br><br>
+	<p style="text-align: center; font-size: larger">
+	Sorry, we have some problem with database. Please stand by.
+	</p>
+SUC;
+else
 echo <<<SET
 <link type="text/css" rel="stylesheet" href="/css/settings.css">
 <div class="settings">

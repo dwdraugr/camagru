@@ -113,4 +113,40 @@ class Model_Settings extends Model
 			return Model::DB_ERROR;
 		}
 	}
+
+	public function change_icon()
+	{
+		if (($result = $this->_auth()) !== Model::SUCCESS)
+			return $result;
+		if (!is_uploaded_file($_FILES['image_upload']['tmp_name']))
+			return Model::UNUPLOADED_FILE;
+		if (($result = $this->_insert_to_ftp($id)) === Model::SUCCESS)
+			return Model::SUCCESS;
+	}
+
+	private function _insert_to_ftp($id)
+	{
+		include "config/database.php";
+		$id = $_SESSION['uid'];
+		$type = exif_imagetype($_FILES['image_upload']['tmp_name']);
+		switch ($type)
+		{
+			case IMAGETYPE_JPEG:
+				$src_img = imagecreatefromjpeg($_FILES['image_upload']['tmp_name']);
+				break;
+			case IMAGETYPE_GIF:
+				$src_img = imagecreatefromgif($_FILES['image_upload']['tmp_name']);
+				break;
+			case IMAGETYPE_PNG:
+				$src_img = imagecreatefrompng($_FILES['image_upload']['tmp_name']);
+				break;
+			default:
+				return Model::FORBIDDEN_FILETYPE;
+		}
+		$img = imagescale($src_img, 128, 128);
+		if (imagejpeg($img, "ftp://$ftp_user:$ftp_pass@$ftp_host/icons/$id.jpg"))
+			return Model::SUCCESS;
+		else
+			return Model::DB_ERROR;
+	}
 }

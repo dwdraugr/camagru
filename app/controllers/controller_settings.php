@@ -61,4 +61,16 @@ class Controller_Settings extends Controller
 		else
 			$this->view->generate(Controller_Settings::$view_page, Controller::$template, $result);
 	}
+
+	public function action_icon()
+	{
+		$result = $this->model->change_icon();
+		if ($result === Model::SUCCESS)
+		{
+			header('Location: /settings/index');
+			exit();
+		}
+		else
+			$this->view->generate(Controller_Settings::$view_page, Controller::$template, $result);
+	}
 }
