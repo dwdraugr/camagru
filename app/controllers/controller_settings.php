@@ -37,4 +37,28 @@ class Controller_Settings extends Controller
 		else
 			$this->view->generate(Controller_Settings::$view_page, Controller::$template, $result);
 	}
+
+	public function action_change_email()
+	{
+		$result = $this->model->change_email();
+		if ($result === Model::SUCCESS)
+		{
+			header('Location: /settings/index');
+			exit();
+		}
+		else
+			$this->view->generate(Controller_Settings::$view_page, Controller::$template, $result);
+	}
+
+	public function action_change_password()
+	{
+		$result = $this->model->change_password();
+		if ($result === Model::SUCCESS)
+		{
+			header('Location: /settings/index');
+			exit();
+		}
+		else
+			$this->view->generate(Controller_Settings::$view_page, Controller::$template, $result);
+	}
 }
