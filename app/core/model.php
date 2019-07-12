@@ -14,6 +14,8 @@ class Model
     const ARTICLE_NOT_FOUND		= 10;
     const NON_CONFIRMED_ACC		= 11;
     const LIKE_EXIST			= 12;
+    const EMAIL_EXIST			= 13;
+    const WRONG_PASSWORD		= 14;
 
     const REASON_CREATE			= 100;
     const REASON_FORGOTTEN		= 101;

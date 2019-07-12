@@ -64,25 +64,29 @@ class Model_Settings extends Model
 		if (($result = $this->_auth()) !== Model::SUCCESS)
 			return $result;
 		include "config/database.php";
-		try
+		if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 		{
-			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
-			$pdo->exec("USE $db");
-			$stmt = $pdo->prepare(Model_Settings::$sql_search_email);
-			$stmt->execute(array('email' => $_POST['new_email']));
-			$data = $stmt->fetch();
-			if ($data)
-				return Model::USER_EXIST;
-			$stmt = $pdo->prepare(Model_Settings::$sql_update_email);
-			$stmt->execute(array(
-				'email' => $_POST['new_email'],
-				'uid' => $_SESSION['uid']
-			));
-			return Model::SUCCESS;
-		}
-		catch (PDOException $ex)
-		{
-			return Model::DB_ERROR;
+			return Model::BAD_EMAIL;
+			try
+			{
+				$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
+				$pdo->exec("USE $db");
+				$stmt = $pdo->prepare(Model_Settings::$sql_search_email);
+				$stmt->execute(array('email' => $_POST['new_email']));
+				$data = $stmt->fetch();
+				if ($data)
+					return Model::EMAIL_EXIST;
+				$stmt = $pdo->prepare(Model_Settings::$sql_update_email);
+				$stmt->execute(array(
+					'email' => $_POST['new_email'],
+					'uid' => $_SESSION['uid']
+				));
+				return Model::SUCCESS;
+			}
+			catch (PDOException $ex)
+			{
+				return Model::DB_ERROR;
+			}
 		}
 	}
 
@@ -91,7 +95,7 @@ class Model_Settings extends Model
 		if (($result = $this->_auth()) !== Model::SUCCESS)
 			return $result;
 		if ($_SESSION['password'] != hash('whirlpool', $_POST['old_password']))
-			return Model::INCORRECT_NICK_PASS;
+			return Model::WRONG_PASSWORD;
 		if ($_POST['confirm_password'] != $_POST['new_password'])
 			return FALSE;
 		if ($_POST['new_password'] === strtolower($_POST['new_password']) or strlen($_POST['new_password']) < 6)

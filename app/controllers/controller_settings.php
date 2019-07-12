@@ -18,8 +18,10 @@ class Controller_Settings extends Controller
 	{
 		$result = $this->model->sending_mail();
 		if ($result === Model::SUCCESS)
+			$this->view->generate(Controller_Settings::$view_page, Controller::$template, $result);
+		elseif ($result === Model::INCORRECT_NICK_PASS)
 		{
-			header('Location: /settings/index');
+			header("Location: /auth/");
 			exit();
 		}
 		else
@@ -30,8 +32,10 @@ class Controller_Settings extends Controller
 	{
 		$result = $this->model->change_nickname();
 		if ($result === Model::SUCCESS)
+			$this->view->generate(Controller_Settings::$view_page, Controller::$template, $result);
+		elseif ($result === Model::INCORRECT_NICK_PASS)
 		{
-			header('Location: /settings/index');
+			header("Location: /auth/");
 			exit();
 		}
 		else
@@ -42,8 +46,10 @@ class Controller_Settings extends Controller
 	{
 		$result = $this->model->change_email();
 		if ($result === Model::SUCCESS)
+			$this->view->generate(Controller_Settings::$view_page, Controller::$template, $result);
+		elseif ($result === Model::INCORRECT_NICK_PASS)
 		{
-			header('Location: /settings/index');
+			header("Location: /auth/");
 			exit();
 		}
 		else
@@ -54,8 +60,10 @@ class Controller_Settings extends Controller
 	{
 		$result = $this->model->change_password();
 		if ($result === Model::SUCCESS)
+			$this->view->generate(Controller_Settings::$view_page, Controller::$template, $result);
+		elseif ($result === Model::INCORRECT_NICK_PASS)
 		{
-			header('Location: /settings/index');
+			header("Location: /auth/");
 			exit();
 		}
 		else
@@ -66,8 +74,10 @@ class Controller_Settings extends Controller
 	{
 		$result = $this->model->change_icon();
 		if ($result === Model::SUCCESS)
+			$this->view->generate(Controller_Settings::$view_page, Controller::$template, $result);
+		elseif ($result === Model::INCORRECT_NICK_PASS)
 		{
-			header('Location: /settings/index');
+			header("Location: /auth/");
 			exit();
 		}
 		else
