@@ -16,6 +16,7 @@ class Model
     const LIKE_EXIST			= 12;
     const EMAIL_EXIST			= 13;
     const WRONG_PASSWORD		= 14;
+    const EMPTY_PROFILE			= 15;
 
     const REASON_CREATE			= 100;
     const REASON_FORGOTTEN		= 101;
