@@ -19,7 +19,7 @@ class Controller_Add extends Controller
 		$result = $this->model->add_like($param);
 		if ($result  === Model::SUCCESS)
 		{
-			header("Location: /main/index#$param");
+			header("Location: ".$_SERVER['HTTP_REFERER']."#$param");
 			exit();
 		}
 		elseif ($result === Model::INCORRECT_NICK_PASS)
