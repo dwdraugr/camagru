@@ -5,6 +5,18 @@ body {
     margin-bottom: 2em;
 }
 
+.navipage button{
+    font-size: 3em;
+    width: 3em;
+    height: 3em;
+    border: none;
+    background: rgb(240, 240, 240);
+}
+
+.navipage button:hover {
+    background: white;
+}
+
 main {
     margin-top: 7em;
 }

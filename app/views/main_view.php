@@ -7,6 +7,8 @@ Sorry, we have some problem with database. Please stand by.
 </p>
 DB_SUC;
 else
+	if ($_SERVER['type'] === 'profile')
+		$uid = $data[0]['uid'];
 	foreach ($data as $d)
 	{
 		echo <<<article
@@ -31,4 +33,46 @@ else
 			</section>
 		</article>
 article;
+	}
+echo "<div style='display: inline-flex; margin-left: 25vw;'>";
+	if ($_SERVER['type'] === 'feed')
+		$type = 'index/';
+	else
+		$type = 'profile/'.$uid;
+if (isset($_GET['page']))
+{
+	if (!isset($_SERVER['first']))
+	{
+		$prev_page = $_GET['page'] - 1;
+		echo "<div class='navipage'><a href='/main/$type?page=$prev_page'><button>👈🏿</button></a></div>";
+		echo "<div class='navipage' style='width: 360px'></div>";
+	}
+	else
+	{
+		echo "<div class='navipage'><a href='/404'><button>🖕🏿</button></a></div>";
+		echo "<div class='navipage' style='width: 360px'></div>";
+	}
+	if (!isset($_SERVER['last']))
+	{
+		$next_page = $_GET['page'] + 1;
+		echo "<div class='navipage'><a href='/main/$type?page=$next_page'><button>👉🏻</button></a></div>";
+	}
+	else
+		echo "<div class='navipage'><a href='/404'><button>🖕🏻</button></a></div>";
 }
+else
+{
+	if (!isset($_SERVER['last']))
+	{
+		echo "<div class='navipage'><a href='/404'><button>🖕🏿</button></a></div>";
+		echo "<div class='navipage' style='width: 360px'></div>";
+		echo "<div class='navipage'><a href='/main/$type?page=2'><button>👉🏻︎</button></a></div>";
+	}
+	else
+	{
+		echo "<div class='navipage'><a href='/404'><button>🖕🏿</button></a></div>";
+		echo "<div class='navipage' style='width: 360px'></div>";
+		echo "<div class='navipage'><a href='/404'><button>🖕🏻</button></a></div>";
+	}
+}
+echo "</div>";
