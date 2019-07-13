@@ -36,7 +36,7 @@ SIGNIN;
 		if ($data === Model::INCORRECT_NICK_PASS)
 			echo "<p style='color: darkred; font-style: italic'>Incorrect login or password</p>";
 		echo <<<SIGNIN
-			<p><a href="#forg">Forgotten password?</a></p>
+			<p><a href="/forgotten">Forgotten password?</a></p>
 		</form>
 	</div>
 SIGNIN;
