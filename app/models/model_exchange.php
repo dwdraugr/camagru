@@ -20,7 +20,7 @@ class Model_Exchange extends Model
 			include "config/database.php";
 			if (!$img)
 			{
-				$img = file_get_contents("images/oops.jpg");
+				$img = file_get_contents("images/Default_Icon.jpg");
 			}
 			return $img;
     }
