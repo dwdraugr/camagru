@@ -26,15 +26,15 @@ main {
     display: block;
     margin-left: 25vw;
     border: none;
-    width: 600px;
+    width: 640px;
     height: auto;
     padding: 5px;
     margin-bottom: 1em;
 }
 
 .photo img {
-    width: 600px;
-    height: 600px;
+    width: 640px;
+    height: 480px;
     object-fit: cover;
 }
 

@@ -53,11 +53,11 @@ article;
 		{
 			$prev_page = $_GET['page'] - 1;
 			echo "<div class='navipage'><a href='/main/$type?page=$prev_page'><button>👈🏿</button></a></div>";
-			echo "<div class='navipage' style='width: 360px'></div>";
+			echo "<div class='navipage' style='width: 390px'></div>";
 		} else
 		{
 			echo "<div class='navipage'><a href='/404'><button>🖕🏿</button></a></div>";
-			echo "<div class='navipage' style='width: 360px'></div>";
+			echo "<div class='navipage' style='width: 390px'></div>";
 		}
 		if (!isset($_SERVER['last']))
 		{
@@ -70,12 +70,12 @@ article;
 		if (!isset($_SERVER['last']))
 		{
 			echo "<div class='navipage'><a href='/404'><button>🖕🏿</button></a></div>";
-			echo "<div class='navipage' style='width: 360px'></div>";
+			echo "<div class='navipage' style='width: 390px'></div>";
 			echo "<div class='navipage'><a href='/main/$type?page=2'><button>👉🏻︎</button></a></div>";
 		} else
 		{
 			echo "<div class='navipage'><a href='/404'><button>🖕🏿</button></a></div>";
-			echo "<div class='navipage' style='width: 360px'></div>";
+			echo "<div class='navipage' style='width: 390px'></div>";
 			echo "<div class='navipage'><a href='/404'><button>🖕🏻</button></a></div>";
 		}
 	}

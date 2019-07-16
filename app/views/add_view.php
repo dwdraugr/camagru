@@ -43,10 +43,15 @@ SUC;
 		break;
 	default:
 		echo <<<MAIN
+<script src="js/camera.js"></script>
+
 <div id="create_post"">
 	<div id="image_field">
 	<form id="upload_form" enctype="multipart/form-data" action="/add/create/" method="post">
 	<input type="file" id="file_up" name="image_upload" accept="image/jpeg, image/png, image/gif" required="required">
+	<video id="video" width="640" height="480" autoplay></video>
+	<button id="snap">Snap Photo</button>
+	<canvas id="canvas" width="640" height="480"></canvas>
 </form>
 </div>
 	<div id="side_menu">	
@@ -55,6 +60,7 @@ SUC;
 																				required="required" name="description"></div>
 		<input id="submit" type="submit" form="upload_form">
 <!--		<div id="submit"><input type="submit" form="upload_form"></div></div>-->
+<button id="biba">BIBA</button>
 </div>
 </div>
 MAIN;

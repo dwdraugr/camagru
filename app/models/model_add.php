@@ -67,7 +67,7 @@ class Model_Add extends Model
 			default:
 				return Model::FORBIDDEN_FILETYPE;
 		}
-		$img = imagescale($src_img, 600, 600);
+		$img = imagescale($src_img, 640, 480);
 		if (imagejpeg($img, "ftp://$ftp_user:$ftp_pass@$ftp_host/photos/$id.jpg"))
 			return Model::SUCCESS;
 		else
