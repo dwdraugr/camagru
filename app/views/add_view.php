@@ -51,7 +51,6 @@ SUC;
 	<input type="file" onchange="readURL();" id="file_up" name="image_upload" accept="image/jpeg, image/png, image/gif" required="required">
 	<video id="video" width="640" height="480" autoplay></video>
 	<canvas id="canvas" width="640" height="480"></canvas>
-	<img id="aaaa" src="" alt="preview"/>
 </form>
 </div>
 	<div id="side_menu">
@@ -61,6 +60,7 @@ SUC;
 		<input id="submit" type="submit" form="upload_form">
 <!--		<div id="submit"><input type="submit" form="upload_form"></div></div>-->
 <button id="biba">START VIDEO</button>
+<button onclick="submit();"  id="buba">SEND SHIT!</button>
 </div>
 </div>
 MAIN;

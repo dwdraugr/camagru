@@ -25,8 +25,10 @@ function start_camera() {
     if (navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
         video.srcObject = stream;
         video.play();
+    }))
+    {
         isVideo = true;
-    }));
+    }
     _Go();
 }
 
@@ -100,4 +102,13 @@ function readURL(input) {
     });
     if (file)
         reader.readAsDataURL(file);
+}
+
+function submit() {
+    var form = document.getElementById('upload_form');
+    var data = new FormData(form);
+    var request = new XMLHttpRequest();
+    request.open('POST', 'add/create');
+    request.send();
+    alert('BIBA');
 }
