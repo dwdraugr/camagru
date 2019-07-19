@@ -3,9 +3,11 @@
     border: 1px solid gray;
     border-radius: 1vmin;
     margin: 2em;
-    width: available;
+    width: 90%;
     height: 80vh;
     background: white;
+    min-width: 900px;
+    min-height: 670px;
 }
 
 #image_field {
@@ -14,6 +16,8 @@
     background: aqua;
     width: 65%;
     height: available;
+    min-width: 660px;
+    min-height: 500px;
 }
 
 #side_menu {
@@ -47,4 +51,29 @@
     background: gray;
     width: 98%;
     height: 10%;
+}
+
+canvas {
+    padding: 0;
+    /*margin: auto;*/
+    display: block;
+    position: relative;
+    margin-left: 0.5em;
+    top: -482px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+video {
+    padding: 0;
+    /*margin: auto;*/
+    display: block;
+    margin-left: 0.5em;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
