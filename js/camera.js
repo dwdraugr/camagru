@@ -105,10 +105,11 @@ function readURL(input) {
 }
 
 function submit() {
-    var form = document.getElementById('upload_form');
-    var data = new FormData(form);
-    var request = new XMLHttpRequest();
-    request.open('POST', 'add/create');
-    request.send();
-    alert('BIBA');
+    // var form = document.getElementById('upload_form');
+    // var data = new FormData(form);
+    // data.append('description', 'bibo');
+    canvas.toBlob(function (blob) {
+        saveAs(blob, "img.png");
+    });
+    document.getElementById('submit').click();
 }

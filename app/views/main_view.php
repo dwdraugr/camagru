@@ -37,7 +37,7 @@ else
 				<br>
 				<p style="font-weight: bold">This picture liked {$d['likes']} people</p>
 				<p><span style="font-weight: bold">{$d['nickname']}: </span>{$d['description']}</p>
-				<div class="comment-div"><a href="/article/index/{$d['aid']}">Open comments</a></div>
+				<div class="comment-div"><a class="comment-button" href="/article/index/{$d['aid']}">Open comments</a></div>
 			</section>
 		</article>
 article;

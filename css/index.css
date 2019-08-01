@@ -137,8 +137,7 @@ nav {
 }
 
 .comment-button {
-    background: none;
-    border: none;
+    font-size: 1em;
 }
 
 .like-svg {
@@ -155,7 +154,7 @@ nav {
 
 .like-comment_button {
     margin-left: 1em;
-}dock
+}
 
 
 @media screen and (orientation: portrait){
@@ -180,7 +179,7 @@ nav {
 
     .photo img {
         width: 100%;
-        height: 65em;
+        height: 100%;
     }
 
     .user-profile {
@@ -216,6 +215,14 @@ nav {
         height: 6em;
     }
 
+    .like-button {
+        font-size: 2em;
+    }
+
+    .comment-button {
+        font-size: 2em;
+    }
+
     .like-comment_button {
         margin-left: 1em;
     }
@@ -225,9 +232,6 @@ nav {
     }
     .comment-div {
         text-align: center;
-    }
-    .like-comment_button a {
-        font-size: 2em;
     }
 
     .navi {
