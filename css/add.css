@@ -35,6 +35,11 @@
     height: 75%;
 }
 
+#sticker_bar img {
+    display: none;
+    margin: 1em;
+}
+
 #description {
     margin: 0.3em;
     background: cornflowerblue;

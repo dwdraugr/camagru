@@ -54,13 +54,18 @@ SUC;
 </form>
 </div>
 	<div id="side_menu">
-		<div id="sticker_bar"></div>
+		<div id="sticker_bar">
+		<img src="/images/ricardo.png">
+		<img src="/images/doggi.png">
+		<img src="/images/benis.png">
+</div>
 		<div id ="description" style="text-align: center">Description<br><input type="text" form="upload_form" maxlength="250"
 																				required="required" name="description"></div>
 		<input style="display: none" id="submit" type="submit" form="upload_form">
 <!--		<div id="submit"><input type="submit" form="upload_form"></div></div>-->
 <button id="biba">START VIDEO</button>
 <button onclick="submit();"  id="buba">SEND SHIT!</button>
+<button onclick="delete_sticker()">DELETE STICKER</button>
 </div>
 </div>
 MAIN;
