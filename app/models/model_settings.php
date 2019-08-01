@@ -124,11 +124,11 @@ class Model_Settings extends Model
 			return $result;
 		if (!is_uploaded_file($_FILES['image_upload']['tmp_name']))
 			return Model::UNUPLOADED_FILE;
-		if (($result = $this->_insert_to_ftp($id)) === Model::SUCCESS)
+		if (($result = $this->_insert_to_ftp()) === Model::SUCCESS)
 			return Model::SUCCESS;
 	}
 
-	private function _insert_to_ftp($id)
+	private function _insert_to_ftp()
 	{
 		include "config/database.php";
 		$id = $_SESSION['uid'];
@@ -147,6 +147,14 @@ class Model_Settings extends Model
 			default:
 				return Model::FORBIDDEN_FILETYPE;
 		}
+		$ftp = ftp_connect($ftp_host);
+		ftp_login($ftp, $ftp_user, $ftp_pass);
+		$lst = ftp_nlist($ftp, "/icons/$id.jpg");
+		if (in_array("/icons/$id.jpg", $lst))
+		{
+			ftp_delete($ftp, "/icons/$id.jpg");
+		}
+		ftp_close($ftp);
 		$img = imagescale($src_img, 128, 128);
 		if (imagejpeg($img, "ftp://$ftp_user:$ftp_pass@$ftp_host/icons/$id.jpg"))
 			return Model::SUCCESS;
