@@ -46,6 +46,9 @@ function start_camera() {
     }
     document.getElementById('file_up').style.display = 'none';
     _Go(stickers);
+    document.getElementById('bsubmit').style.display = 'block';
+    document.getElementById('biba').style.display = 'none';
+    document.getElementById('del_stick').style.display = 'block';
     source = 1;
 }
 
@@ -128,6 +131,9 @@ function readURL(input) {
     if (file)
         reader.readAsDataURL(file);
     document.getElementById('biba').style.display = 'none';
+    document.getElementById('bsubmit').style.display = 'block';
+    document.getElementById('file_up').style.display = 'none';
+    document.getElementById('del_stick').style.display = 'block';
     source = 2;
 }
 

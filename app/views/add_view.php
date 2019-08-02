@@ -48,7 +48,7 @@ SUC;
 <div id="create_post"">
 	<div id="image_field">
 	<form id="upload_form" enctype="multipart/form-data" action="/add/create/" method="post">
-	<input type="file" onchange="readURL();" id="file_up" name="image_upload" accept="image/jpeg, image/png, image/gif">
+	<input type="file" onchange="readURL();" id="file_up" name="image_upload" accept="image/jpeg, image/png, image/gif" >
 	<video id="video" width="640" height="480" autoplay></video>
 	<canvas id="canvas" width="640" height="480"></canvas>
 </form>
@@ -58,16 +58,15 @@ SUC;
 		<img src="/images/ricardo.png">
 		<img src="/images/doggi.png">
 		<img src="/images/benis.png">
+		<hr>
+		<button id="del_stick" style="display: none" onclick="delete_sticker()">DELETE STICKER</button>
 </div>
 		<div id ="description" style="text-align: center">Description<br><input type="text" form="upload_form" maxlength="250"
 																				required="required" name="description"></div>
 		<input style="display: none" id="submit" type="submit" form="upload_form">
 <!--		<div id="submit"><input type="submit" form="upload_form"></div></div>-->
 <button id="biba">START VIDEO</button>
-<button onclick="submit();"  id="buba">SEND SHIT!</button>
-<button onclick="delete_sticker()">DELETE STICKER</button>
-<button onclick="video_to_base64()"> base</button>
-
+<button id="bsubmit" style="display: none" onclick="submit();"  id="buba">SEND IMAGE</button>
 </div>
 </div>
 <canvas id="hide_canv" style="display: none" width="640" height="480"></canvas>

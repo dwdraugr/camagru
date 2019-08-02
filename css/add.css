@@ -11,6 +11,7 @@
 }
 
 #image_field {
+    padding: 1em;
     margin: 1em;
     display: inline-flex;
     background: aqua;
@@ -51,11 +52,18 @@
     width: 80%;
 }
 
-#submit {
+#submit, #bsubmit, #biba, #del_stick{
     margin: 1em 0.3em 0.3em 0.3em;
     background: gray;
     width: 98%;
     height: 10%;
+}
+
+#file_up {
+    margin: 1em 0.3em 0.3em 0.3em;
+    background: gray;
+    width: 98%;
+    height: 30%;
 }
 
 canvas {
