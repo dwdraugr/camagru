@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/auth.css">
     <link rel="stylesheet" href="/css/add.css">
+    <link rel="icon" href="/images/icon.ico" type="image/x-icon">
 </head>
 <body>
 <header>

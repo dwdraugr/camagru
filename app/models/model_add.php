@@ -27,6 +27,11 @@ class Model_Add extends Model
 			return $result;
 	}
 
+	public function create_article_base()
+	{
+
+	}
+
 	private function _insert_to_table()
 	{
 		$arr = array(

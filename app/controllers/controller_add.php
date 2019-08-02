@@ -52,4 +52,26 @@ class Controller_Add extends Controller
 		else
 			$this->view->generate(self::$view_page, Controller::$template, $result);
 	}
+
+	public function action_create_base()
+	{
+		$result = $this->model->create_article_base();
+		if (gettype($result) === "array")
+		{
+			header("Location: /article/index/$result[1]");
+			exit();
+		}
+		elseif ($result === Model::INCORRECT_NICK_PASS)
+		{
+			header("Location: /auth/");
+			exit();
+		}
+		elseif ($result === Model::INCOMPLETE_DATA)
+		{
+			header("Location: /auth");
+			exit();
+		}
+		else
+			$this->view->generate(self::$view_page, Controller::$template, $result);
+	}
 }
