@@ -29,7 +29,26 @@ class Model_Add extends Model
 
 	public function create_article_base()
 	{
-
+		if (($result = $this->_auth()) !== Model::SUCCESS)
+			return $result;
+		if (!isset($_POST['description']) or !isset($_POST['base_img']))
+			return Model::INCOMPLETE_DATA;
+		$data = explode(',',$_POST['base_img']);
+		$img = imagecreatefromstring(base64_decode($data[1]));
+		if ($img === FALSE)
+			return Model::UNUPLOADED_FILE;
+		try
+		{
+			$id = $this->_insert_to_table();
+		}
+		catch (PDOException $ex)
+		{
+			return Model::DB_ERROR;
+		}
+		if (($result = $this->_insert_to_ftp_base($id, $img)) === Model::SUCCESS)
+			return array(Model::SUCCESS, $id);
+		else
+			return $result;
 	}
 
 	private function _insert_to_table()
@@ -73,6 +92,18 @@ class Model_Add extends Model
 				return Model::FORBIDDEN_FILETYPE;
 		}
 		$img = imagescale($src_img, 640, 480);
+		if (isset($_POST['sticker0']))
+			$img = $this->_add_stickers($img);
+		if (imagejpeg($img, "ftp://$ftp_user:$ftp_pass@$ftp_host/photos/$id.jpg"))
+			return Model::SUCCESS;
+		else
+			return Model::DB_ERROR;
+	}
+
+	private function _insert_to_ftp_base($id, $img)
+	{
+		include "config/database.php";
+		$img = imagescale($img, 640, 480);
 		if (isset($_POST['sticker0']))
 			$img = $this->_add_stickers($img);
 		if (imagejpeg($img, "ftp://$ftp_user:$ftp_pass@$ftp_host/photos/$id.jpg"))

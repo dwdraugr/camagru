@@ -4,6 +4,7 @@ var imgs;
 var isDraggable = false;
 var isVideo = false;
 var stickers = [];
+var source = 0;
 
 window.onload = function() {
     document.getElementById('biba').addEventListener('click', start_camera);
@@ -38,7 +39,14 @@ function start_camera() {
     {
         isVideo = true;
     }
+    let imgs = document.getElementsByTagName('img');
+    for (i = 0; i < imgs.length; i++)
+    {
+        imgs[i].style.display = 'inline-flex';
+    }
+    document.getElementById('file_up').style.display = 'none';
     _Go(stickers);
+    source = 1;
 }
 
 function edit_photo(stickers) {
@@ -119,6 +127,8 @@ function readURL(input) {
     });
     if (file)
         reader.readAsDataURL(file);
+    document.getElementById('biba').style.display = 'none';
+    source = 2;
 }
 
 function submit() {
@@ -134,10 +144,34 @@ function submit() {
         input.setAttribute('value', str[4] + ';' + stickers[i].X + ';' + stickers[i].Y);
         form.appendChild(input);
     }
-    //document.getElementById('submit').click();
+    if (source === 2)
+        document.getElementById('submit').click();
+    else if (source === 1)
+    {
+        document.getElementById('upload_form').setAttribute('action', '/add/create_base/')
+        base = video_to_base64();
+        let binput = document.createElement('input');
+        binput.setAttribute('type', 'text');
+        binput.setAttribute('form', 'upload_form');
+        binput.setAttribute('name', 'base_img');
+        binput.style.display = 'none';
+        binput.setAttribute('value', base);
+        form.appendChild(binput);
+        document.getElementById('submit').click();
+    }
+    else alert('Please, create post');
 }
 
 function delete_sticker() {
     stickers.pop();
     _MouseEvents(stickers);
+}
+
+function video_to_base64()
+{
+    hcanvas = document.getElementById('hide_canv');
+    hcanvas.getContext('2d').drawImage(video, 0, 0, 640, 480);
+    base = hcanvas.toDataURL();
+    console.log(base);
+    return base;
 }

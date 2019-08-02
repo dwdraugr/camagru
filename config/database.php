@@ -16,4 +16,4 @@ $ftp_host = '172.17.0.3';
 $ftp_user = 'admin';
 $ftp_pass = 'admin';
 
-$email_host = 'oa-c5.21-school.ru:8080';
+$email_host = 'at-i7.21-school.ru:8080';
