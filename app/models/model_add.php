@@ -68,10 +68,25 @@ class Model_Add extends Model
 				return Model::FORBIDDEN_FILETYPE;
 		}
 		$img = imagescale($src_img, 640, 480);
+		if (isset($_POST['sticker0']))
+			$img = $this->_add_stickers($img);
 		if (imagejpeg($img, "ftp://$ftp_user:$ftp_pass@$ftp_host/photos/$id.jpg"))
 			return Model::SUCCESS;
 		else
 			return Model::DB_ERROR;
+	}
+
+	private function _add_stickers($img)
+	{
+		for ($i = 0; ; $i++)
+		{
+			if (!isset($_POST['sticker'.$i]))
+				break ;
+			$param = explode(';', $_POST['sticker'.$i]);
+			$sticker = imagecreatefrompng('images/'.$param[0]);
+			imagecopy($img, $sticker, $param[1] - 64, $param[2] - 64, 0, 0, 128, 128);
+		}
+		return $img;
 	}
 
 	public function add_like($aid)

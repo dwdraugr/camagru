@@ -122,10 +122,19 @@ function readURL(input) {
 }
 
 function submit() {
-    // var form = document.getElementById('upload_form');
-    // var data = new FormData(form);
-    // data.append('description', 'bibo');
-    document.getElementById('submit').click();
+    let form = document.getElementById('description');
+    for (i = 0; i < stickers.length; i++)
+    {
+        let input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('form', 'upload_form');
+        input.setAttribute('name', 'sticker' + i);
+        input.style.display = 'none';
+        let str = stickers[i].star_img.src.split('/')
+        input.setAttribute('value', str[4] + ';' + stickers[i].X + ';' + stickers[i].Y);
+        form.appendChild(input);
+    }
+    //document.getElementById('submit').click();
 }
 
 function delete_sticker() {

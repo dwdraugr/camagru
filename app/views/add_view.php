@@ -61,7 +61,7 @@ SUC;
 </div>
 		<div id ="description" style="text-align: center">Description<br><input type="text" form="upload_form" maxlength="250"
 																				required="required" name="description"></div>
-		<input style="display: none" id="submit" type="submit" form="upload_form">
+		<input style="display: block" id="submit" type="submit" form="upload_form">
 <!--		<div id="submit"><input type="submit" form="upload_form"></div></div>-->
 <button id="biba">START VIDEO</button>
 <button onclick="submit();"  id="buba">SEND SHIT!</button>
