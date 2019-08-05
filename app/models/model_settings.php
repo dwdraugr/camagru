@@ -64,30 +64,29 @@ class Model_Settings extends Model
 		if (($result = $this->_auth()) !== Model::SUCCESS)
 			return $result;
 		include "config/database.php";
-		if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-		{
+		if (!filter_var($_POST['new_email'], FILTER_VALIDATE_EMAIL))
 			return Model::BAD_EMAIL;
-			try
-			{
-				$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
-				$pdo->exec("USE $db");
-				$stmt = $pdo->prepare(Model_Settings::$sql_search_email);
-				$stmt->execute(array('email' => $_POST['new_email']));
-				$data = $stmt->fetch();
-				if ($data)
-					return Model::EMAIL_EXIST;
-				$stmt = $pdo->prepare(Model_Settings::$sql_update_email);
-				$stmt->execute(array(
-					'email' => $_POST['new_email'],
-					'uid' => $_SESSION['uid']
-				));
-				return Model::SUCCESS;
-			}
-			catch (PDOException $ex)
-			{
-				return Model::DB_ERROR;
-			}
+		try
+		{
+			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
+			$pdo->exec("USE $db");
+			$stmt = $pdo->prepare(Model_Settings::$sql_search_email);
+			$stmt->execute(array('email' => $_POST['new_email']));
+			$data = $stmt->fetch();
+			if ($data)
+				return Model::EMAIL_EXIST;
+			$stmt = $pdo->prepare(Model_Settings::$sql_update_email);
+			$stmt->execute(array(
+				'email' => $_POST['new_email'],
+				'uid' => $_SESSION['uid']
+			));
+			return Model::SUCCESS;
 		}
+		catch (PDOException $ex)
+		{
+			return Model::DB_ERROR;
+		}
+
 	}
 
 	public function change_password()
