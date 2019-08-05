@@ -4,6 +4,7 @@ class Model_Add extends Model
 	private static $sql_add_post = "INSERT INTO articles VALUES (NULL, :uid, :description, NOW(), 0)";
 	private static $sql_add_like = "INSERT INTO likes_table VALUES (:aid, :uid)";
 	private static $sql_search_like = "SELECT * FROM likes_table WHERE id_article = :aid AND id_user = :uid";
+	private static $sql_del_like = "DELETE FROM likes_table WHERE id_article = :aid AND id_user = :uid";
 
 	public function create_article()
 	{
@@ -141,13 +142,32 @@ class Model_Add extends Model
 			));
 			$data = $stmt->fetch();
 			if ($data !== false)
-				return Model::LIKE_EXIST;
+			{
+				return $this->del_like($aid, $pdo);
+			}
 			$stmt = $pdo->prepare(self::$sql_add_like);
 			$stmt->execute(array(
 				'aid' => $aid,
 				'uid' => $_SESSION['uid']
 			));
 			return Model::SUCCESS;
+		}
+		catch (PDOException $ex)
+		{
+			return Model::DB_ERROR;
+		}
+	}
+
+	private function del_like($aid, $pdo)
+	{
+		try
+		{
+			$stmt = $pdo->prepare(Model_Add::$sql_del_like);
+			$stmt->execute(array('uid' => $_SESSION['uid'], 'aid' => $aid));
+			if ($stmt->rowCount())
+				return Model::SUCCESS;
+			else
+				return Model::DB_ERROR;
 		}
 		catch (PDOException $ex)
 		{
