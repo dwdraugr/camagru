@@ -16,6 +16,11 @@ class Controller_Add extends Controller
 
 	public function action_like($param)
 	{
+		if (gettype($param) === 'array')
+		{
+			header("Location: /404/");
+			exit;
+		}
 		$result = $this->model->add_like($param);
 		if ($result  === Model::SUCCESS)
 		{

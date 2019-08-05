@@ -24,7 +24,7 @@ class Model_Article extends Model
 			$stmt = $pdo->prepare($this->sql_get_post);
 			$stmt->execute(array('aid' => $aid));
 			$data[] = $stmt->fetch();
-			if (!$data)
+			if (!$data[0])
 				return Model::ARTICLE_NOT_FOUND;
 			$stmt = $pdo->prepare($this->sql_get_comment);
 			$stmt->execute(array('aid' => $aid));
