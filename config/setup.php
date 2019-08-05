@@ -44,9 +44,4 @@ $pdo->exec($article_tab);
 $pdo->exec($comments_tab);
 $pdo->exec($change_tab);
 $pdo->exec($likes_tab);
-$data = $pdo->query('SELECT articles.id as aid, users.id as uid, users.nickname, articles.`likes` , articles.description FROM articles, users WHERE users.id = articles.id_user ORDER BY articles.publication_date ASC ');
-foreach ($data as $datum) {
-    echo "<br>";
-    var_dump($datum);
-}
 $pdo = null;
