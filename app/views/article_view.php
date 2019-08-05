@@ -34,7 +34,6 @@ else
 		<section class="user-profile">
 			<img class="user-pic" src="/exchange/icon/{$data[0]['uid']}">
 			<p>{$data[0]['nickname']}</p>
-			<button>* * *</button>
 		</section>
 		<section class="photo">
 			<img src="/exchange/photo/{$data[0]['aid']}">
@@ -46,7 +45,14 @@ else
 			<br>
 			<p style="font-weight: bold">This picture liked {$data[0]['likes']} people</p>
 			<p><span style="font-weight: bold">{$data[0]['nickname']}: </span>{$data[0]['description']}</p>
+			
 ARTICLE;
+	if (isset($_SESSION['uid']) and $_SESSION['uid'] === $data[0]['uid'])
+	{
+		echo "<form action='/article/delete/{$data[0]['aid']}' method='post'>";
+		echo "<input style='font-style: italic; color: red' type='submit' name='del' value='Delete Post'>";
+		echo "</form><hr>";
+	}
 	foreach ($data[1] as $datum)
 	{
 		$content = htmlentities($datum['content']);

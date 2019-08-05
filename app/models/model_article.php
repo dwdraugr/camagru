@@ -12,6 +12,7 @@ class Model_Article extends Model
 	private $sql_send_email = "SELECT email, send_email FROM users INNER JOIN articles
 								ON users.id = articles.id_user AND articles.id = :aid";
 	private static $sql_get_likes = "SELECT COUNT(*) as likes FROM likes_table WHERE id_article = :aid";
+	private static $sql_del_post = "DELETE FROM articles WHERE id = :aid AND id_user = :uid";
 
 
 	public function get_data($aid)
@@ -84,5 +85,27 @@ class Model_Article extends Model
 			"Reply-To: kostya.marinenkov@gmail.com"."\r\n".
 			"X-Mailer: PHP/".phpversion();
 		mail($email, $subject, $main, $headers);
+	}
+
+	public function delete_post($aid)
+	{
+		$result = $this->_auth();
+		if ( $result !== Model::SUCCESS)
+			return $result;
+		include "config/database.php";
+		try
+		{
+			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
+			$pdo->exec("USE $db");
+			$stmt = $pdo->prepare(self::$sql_del_post);
+			$stmt->execute(array('aid' => $aid, 'uid' => $_SESSION['uid']));
+			if (!$stmt->rowCount())
+				return Model::ARTICLE_NOT_FOUND;
+			return Model::SUCCESS;
+		}
+		catch (PDOException $ex)
+		{
+			return Model::DB_ERROR;
+		}
 	}
 }

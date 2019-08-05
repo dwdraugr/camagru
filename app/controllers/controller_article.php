@@ -35,4 +35,19 @@ class Controller_Article extends Controller
 		else
 			$this->view->generate(Controller_Article::$view_page, Controller::$template, $data);
 	}
+
+	public function action_delete($param)
+	{
+		if ($param == null)
+		{
+			Route::ErrorPage404();
+			exit();
+		}
+		$result = $this->model->delete_post($param);
+		if ($result === Model::SUCCESS)
+		{
+			header("Location: /main/profile/{$_SESSION['uid']}");
+			exit();
+		}
+	}
 }

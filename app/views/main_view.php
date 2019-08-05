@@ -25,7 +25,6 @@ else
 			<section class="user-profile">
 				<img class="user-pic" src="/exchange/icon/{$d['uid']}">
 				<a href="/main/profile/{$d['uid']}"><p>{$d['nickname']}</p></a>
-				<button>* * *</button>
 			</section>
 			<section class="photo">
 				<img src="/exchange/photo/{$d['aid']}">
