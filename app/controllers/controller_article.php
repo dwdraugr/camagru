@@ -50,4 +50,20 @@ class Controller_Article extends Controller
 			exit();
 		}
 	}
+
+	public function action_del_comment($param)
+	{
+		if ($param == null)
+		{
+			Route::ErrorPage404();
+			exit();
+		}
+		$result = $this->model->delete_comment($param);
+		if ($result === Model::SUCCESS)
+		{
+			$arr = explode(';', $param);
+			header("Location: /article/index/{$arr[1]}");
+			exit();
+		}
+	}
 }

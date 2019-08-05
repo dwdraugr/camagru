@@ -13,6 +13,7 @@ class Model_Article extends Model
 								ON users.id = articles.id_user AND articles.id = :aid";
 	private static $sql_get_likes = "SELECT COUNT(*) as likes FROM likes_table WHERE id_article = :aid";
 	private static $sql_del_post = "DELETE FROM articles WHERE id = :aid AND id_user = :uid";
+	private static $sql_del_comment = "DELETE FROM comments WHERE id = :cid AND id_user = :uid";
 
 
 	public function get_data($aid)
@@ -99,6 +100,31 @@ class Model_Article extends Model
 			$pdo->exec("USE $db");
 			$stmt = $pdo->prepare(self::$sql_del_post);
 			$stmt->execute(array('aid' => $aid, 'uid' => $_SESSION['uid']));
+			if (!$stmt->rowCount())
+				return Model::ARTICLE_NOT_FOUND;
+			return Model::SUCCESS;
+		}
+		catch (PDOException $ex)
+		{
+			return Model::DB_ERROR;
+		}
+	}
+
+	public function delete_comment($cid)
+	{
+		$result = $this->_auth();
+		if ( $result !== Model::SUCCESS)
+			return $result;
+		if (!strstr($cid, ';'))
+			return Model::ARTICLE_NOT_FOUND;
+		$arr = explode(';', $cid);
+		include "config/database.php";
+		try
+		{
+			$pdo = new PDO($dsn, $db_user, $db_pass, $opt);
+			$pdo->exec("USE $db");
+			$stmt = $pdo->prepare(self::$sql_del_comment);
+			$stmt->execute(array('cid' => $arr[0], 'uid' => $_SESSION['uid']));
 			if (!$stmt->rowCount())
 				return Model::ARTICLE_NOT_FOUND;
 			return Model::SUCCESS;

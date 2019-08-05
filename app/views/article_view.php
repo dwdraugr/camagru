@@ -61,6 +61,14 @@ ARTICLE;
 	{$content}
 	</p>
 COMMENT;
+		if ($datum['uid'] === $_SESSION['uid'])
+			echo <<<DEL_INPUT
+	<form action="/article/del_comment/{$datum['cid']};{$data[0]['aid']}" method="post">
+	<input style="color: red" type="submit" value="Delete" name="Delete">
+</form>
+<hr>
+DEL_INPUT;
+
 	}
 	echo <<<ADD_COMMENT
 <form id="comment_field" action="/article/add/{$data[0]['aid']}" method="post">
